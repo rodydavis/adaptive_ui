@@ -15,7 +15,7 @@ class PlatformScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   fullscreenDialog: true,
-                  builder: (_) => SettingsScreen(),
+                  builder: (_) => _SettingsScreen(),
                 ));
               },
             ),
@@ -26,7 +26,7 @@ class PlatformScreen extends StatelessWidget {
   }
 }
 
-class SettingsScreen extends StatelessWidget {
+class _SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
