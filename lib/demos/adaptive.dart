@@ -20,6 +20,7 @@ class _AdaptiveScreenState extends State<AdaptiveScreen> {
               Container(
                 width: 300,
                 child: AdaptiveList(
+                  automaticallyImplyLeading: false,
                   floatingActionButtonLocation:
                       FloatingActionButtonLocation.startTop,
                   onSelect: (val) => _selection.value = val,
@@ -28,14 +29,17 @@ class _AdaptiveScreenState extends State<AdaptiveScreen> {
               Expanded(
                 child: ValueListenableBuilder(
                   valueListenable: _selection,
-                  builder: (context, contact, child) =>
-                      DetailsScreen(contact: contact),
+                  builder: (context, contact, child) => DetailsScreen(
+                    contact: contact,
+                    automaticallyImplyLeading: false,
+                  ),
                 ),
               )
             ],
           );
         }
         return AdaptiveList(
+          automaticallyImplyLeading: false,
           onSelect: (val) {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (_) => DetailsScreen(contact: val),
@@ -52,16 +56,20 @@ class AdaptiveList extends StatelessWidget {
     Key key,
     @required this.onSelect,
     this.floatingActionButtonLocation,
+    this.automaticallyImplyLeading = true,
   }) : super(key: key);
 
   final ValueChanged<Contact> onSelect;
+  final bool automaticallyImplyLeading;
   final FloatingActionButtonLocation floatingActionButtonLocation;
 
   @override
   Widget build(BuildContext context) {
     const kCount = 20;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        automaticallyImplyLeading: automaticallyImplyLeading,
+      ),
       body: ListView.separated(
         separatorBuilder: (context, index) => Divider(
           thickness: 3,

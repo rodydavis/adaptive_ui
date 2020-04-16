@@ -10,6 +10,7 @@ class DialogScreen extends StatelessWidget {
       builder: (_, dimens) => Scaffold(
         appBar: AppBar(
           centerTitle: false,
+          automaticallyImplyLeading: false,
           title: Text('Home'),
           actions: [
             IconButton(
@@ -49,19 +50,19 @@ class AdaptiveDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (_, dimens) {
-        if (dimens.maxWidth > kDialogSize.width &&
-            dimens.maxHeight > kDialogSize.height) {
-          return Center(
-            child: SizedBox.fromSize(
-              size: kDialogSize,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: child,
-              ),
-            ),
-          );
+        if (dimens.maxWidth < kDialogSize.width ||
+            dimens.maxHeight < kDialogSize.height) {
+          return child;
         }
-        return child;
+        return Center(
+          child: SizedBox.fromSize(
+            size: kDialogSize,
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: child,
+            ),
+          ),
+        );
       },
     );
   }

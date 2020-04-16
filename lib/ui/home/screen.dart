@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
       RouteName('/tablet', 'Tablet Screen'),
       RouteName('/adaptive_screen', 'Adaptive Screen'),
       RouteName('/adaptive_dialog', 'Adaptive Dialog'),
-      RouteName('/platform', 'Platform View'),
+      RouteName('/platform', 'Platform Demo'),
       RouteName('/default', 'Default View'),
     ];
     return Scaffold(

@@ -5,6 +5,7 @@ class TabletDevice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         leading: Icon(Icons.menu),
         title: Text('Tablet Layout'),
       ),

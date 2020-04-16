@@ -10,15 +10,19 @@ class DetailsScreen extends StatelessWidget {
   const DetailsScreen({
     Key key,
     this.contact,
+    this.automaticallyImplyLeading = true,
   }) : super(key: key);
 
   final Contact contact;
+  final bool automaticallyImplyLeading;
 
   @override
   Widget build(BuildContext context) {
     if (contact == null) {
       return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          automaticallyImplyLeading: automaticallyImplyLeading,
+        ),
         body: Placeholder(
           color: Colors.grey.shade300,
           strokeWidth: 3,
