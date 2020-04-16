@@ -1,7 +1,7 @@
 import 'package:adaptive_ui/ui/breakpoints.dart';
 import 'package:flutter/material.dart';
 
-const kDialogSize = Size(500, 700);
+const kDialogSize = Size(490, 700);
 
 class DialogScreen extends StatelessWidget {
   @override
@@ -11,7 +11,7 @@ class DialogScreen extends StatelessWidget {
         appBar: AppBar(
           centerTitle: false,
           automaticallyImplyLeading: false,
-          title: Text('Home'),
+          title: Text('Adaptive Dialog Demo'),
           actions: [
             IconButton(
               icon: Icon(Icons.settings),
@@ -32,6 +32,35 @@ class DialogScreen extends StatelessWidget {
               },
             ),
           ],
+        ),
+        body: Center(
+          child: Container(
+            width: 300,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RaisedButton.icon(
+                  icon: Icon(Icons.settings),
+                  label: Text('Open Settings'),
+                  onPressed: () {
+                    if (dimens.maxWidth >= kTabletBreakpoint) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => AdaptiveDialog(
+                          child: SettingsScreen(),
+                        ),
+                      );
+                      return;
+                    }
+                    Navigator.of(context).push(MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: (_) => SettingsScreen(),
+                    ));
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
