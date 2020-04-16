@@ -12,42 +12,30 @@ class _AdaptiveScreenState extends State<AdaptiveScreen> {
   final _selection = ValueNotifier<Contact>(null);
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (_, dimens) {
-        if (dimens.maxWidth >= kTabletBreakpoint) {
-          return Row(
-            children: <Widget>[
-              Container(
-                width: 300,
-                child: AdaptiveList(
+    return LayoutBuilder(builder: (_, dimens) {
+      if (dimens.maxWidth >= kTabletBreakpoint) {
+        return Row(children: <Widget>[
+          Container(
+              width: 300,
+              child: AdaptiveList(
                   automaticallyImplyLeading: false,
                   floatingActionButtonLocation:
                       FloatingActionButtonLocation.startTop,
-                  onSelect: (val) => _selection.value = val,
-                ),
-              ),
-              Expanded(
-                child: ValueListenableBuilder(
+                  onSelect: (val) => _selection.value = val)),
+          Expanded(
+              child: ValueListenableBuilder(
                   valueListenable: _selection,
                   builder: (context, contact, child) => DetailsScreen(
-                    contact: contact,
-                    automaticallyImplyLeading: false,
-                  ),
-                ),
-              )
-            ],
-          );
-        }
-        return AdaptiveList(
+                      contact: contact, automaticallyImplyLeading: false)))
+        ]);
+      }
+      return AdaptiveList(
           automaticallyImplyLeading: false,
           onSelect: (val) {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => DetailsScreen(contact: val),
-            ));
-          },
-        );
-      },
-    );
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => DetailsScreen(contact: val)));
+          });
+    });
   }
 }
 
