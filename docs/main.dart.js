@@ -23648,8 +23648,8 @@ E.i9.prototype={
 E:function(a){return new A.hq(new E.Ex(this),null)}}
 E.Ex.prototype={
 $2:function(a,b){var t=null
-if(b.b<490||b.d<700)return this.a.c
-return new T.d_(C.M,t,t,new T.cU(490,700,new T.tI(1,this.a.c,t),t),t)}}
+if(b.b<505||b.d<700)return this.a.c
+return new T.d_(C.M,t,t,new T.cU(505,700,new T.tI(1,this.a.c,t),t),t)}}
 E.fw.prototype={
 E:function(a){var t=null
 return M.eK(E.el(t,!0,!1,t,L.c1("Settings",t)),t,t,t)}}

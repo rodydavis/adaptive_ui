@@ -1,7 +1,7 @@
 import 'package:adaptive_ui/ui/breakpoints.dart';
 import 'package:flutter/material.dart';
 
-const kDialogSize = Size(490, 700);
+const kDialogSize = Size(505, 700);
 
 class DialogScreen extends StatelessWidget {
   @override
