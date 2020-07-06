@@ -10,14 +10,46 @@ workflows:
       xcode: latest
       cocoapods: default
     scripts:
-      - flutter packages pub get
-      - flutter config --enable-web
+      - |
+        # set up debug keystore
+        rm -f ~/.android/debug.keystore
+        keytool -genkeypair \
+          -alias androiddebugkey \
+          -keypass android \
+          -keystore ~/.android/debug.keystore \
+          -storepass android \
+          -dname 'CN=Android Debug,O=Android,C=US' \
+          -keyalg 'RSA' \
+          -keysize 2048 \
+          -validity 10000
+      - |
+        # set up local properties
+        echo "flutter.sdk=$HOME/programs/flutter" > "$FCI_BUILD_DIR/android/local.properties"
+      - cd . && flutter packages pub get
+      - cd . && flutter config --enable-web
+      - cd . && flutter build appbundle --debug
+      - |
+        # generate universal apk signed with debug key
+        android-app-bundle build-universal-apk \
+          --bundle str(Path(project_file, 'build/**/outputs/**/*.aab')) \
+          --ks ~/.android/debug.keystore \
+          --ks-pass android \
+          --ks-key-alias androiddebugkey \
+          --key-pass android
+      - find . -name "Podfile" -execdir pod install \;
+      - cd . && flutter build ios --debug --no-codesign
       - |
         # build web
+        cd .
         flutter build web --release
         cd build/web
         7z a -r ../web.zip ./*
     artifacts:
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/mapping.txt
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
       - build/web.zip
       - flutter_drive.log
     publishing:
